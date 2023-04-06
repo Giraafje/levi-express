@@ -8,13 +8,19 @@ export const JourneyPicker = ({ onJourneyChange }) => {
   const [toCity, setToCity] = useState('')
   const [date, setDate] = useState('')
   const [cities, setCities] = useState([])
+  const [dates, setDates] = useState([])
 
   useEffect(() => {
+
     fetch(`${API_BASE_URL}/cities`)
       .then((response) => response.json())
       .then((data) => setCities(data.results));
+
+    fetch(`${API_BASE_URL}/dates`)
+    .then((response) => response.json())
+    .then((data) => setDates(data.results));
+
   }, [])
-  
 
   const handleChangeFrom = (e) => {
     console.log(e.target.value)
@@ -60,11 +66,7 @@ export const JourneyPicker = ({ onJourneyChange }) => {
             <div className="journey-picker__label">Datum:</div>
             <select onChange={handleChangeDate} value={date}>
               <option value="">Vyberte</option>
-              <option value="datum01">Datum 01</option>
-              <option value="datum02">Datum 02</option>
-              <option value="datum03">Datum 03</option>
-              <option value="datum04">Datum 04</option>
-              <option value="datum05">Datum 05</option>
+              <DatesOptions dates={dates} />
             </select>
           </label>
           <div className="journey-picker__controls">
@@ -86,6 +88,14 @@ const CityOptions = ({ cities }) => {
   return (
     <>
     {cities?.map((city) => <option key={city.code} value={city.code}>{city.name}</option>)}
+    </>
+  )
+}
+
+const DatesOptions = ({ dates }) => {
+  return (
+    <>
+    {dates?.map((date) => <option key={date.dateBasic} value={date.dateBasic}>{date.dateCs}</option>)}
     </>
   )
 }
