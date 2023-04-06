@@ -23,17 +23,14 @@ export const JourneyPicker = ({ onJourneyChange }) => {
   }, [])
 
   const handleChangeFrom = (e) => {
-    console.log(e.target.value)
     setFromCity(e.target.value)
   }
 
   const handleChangeTo = (e) => {
-    console.log(e.target.value)
     setToCity(e.target.value)
   }
 
   const handleChangeDate = (e) => {
-    console.log(e.target.value)
     setDate(e.target.value)
   }
   
@@ -41,6 +38,9 @@ export const JourneyPicker = ({ onJourneyChange }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(`${fromCity} -> ${toCity} on ${date}`);
+    fetch(`${API_BASE_URL}/journey?fromCity=${fromCity}&toCity=${toCity}&date=${date}`)
+      .then((response) => response.json())
+      .then((data) => onJourneyChange(data));    
   }
 
   return (
@@ -73,6 +73,7 @@ export const JourneyPicker = ({ onJourneyChange }) => {
             <button 
               className="btn" 
               type="submit"
+              disabled={!fromCity || !toCity || !date}
             > 
               Vyhledat spoj
             </button>
