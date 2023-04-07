@@ -1,0 +1,1 @@
+export { SelectedSeat } from './SelectedSeat';

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import mapImage from './img/map.svg';
-import { API_BASE_URL} from './../../index'
+import { API_BASE_URL} from './../../index';
 import './style.css';
 
 export const JourneyPicker = ({ onJourneyChange }) => {
@@ -58,8 +58,8 @@ export const JourneyPicker = ({ onJourneyChange }) => {
           <label>
             <div className="journey-picker__label">Kam:</div>
             <select onChange={handleChangeTo} value={toCity}>
-            <CityOptions cities={cities} />
               <option value="">Vyberte</option>
+              <CityOptions cities={cities} />  
             </select>
           </label>
           <label>
