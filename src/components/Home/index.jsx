@@ -9,10 +9,10 @@ import './home.css'
 export const Home = () => {
   const navigate = useNavigate()
   const [journey, setJourney] = useState(null)
-  
+  const [userSeat, setUserSeat] = useState(null)
+
   const handleJourneyChange = (journeyData) => {
     setJourney(journeyData);
-    console.log(journeyData);
   }
 
   const handleBuy = () => {
@@ -23,12 +23,16 @@ export const Home = () => {
       },
       body: JSON.stringify({
         action: 'create',
-        seat: journey.results.autoSeat,
+        seat: userSeat,
         journeyId: journey.results.journeyId,
       }),
     })
     .then((response) => response.json())
     .then((data) => navigate(`/reservation/${data.results.reservationId}`))
+  }
+
+  const handleSelect = (seatNumber) => {
+    setUserSeat(seatNumber)
   }
 
   return (
@@ -38,7 +42,12 @@ export const Home = () => {
         <>
           <p>Nalezeno spojení s id <b>{journey.results.journeyId}</b>.</p>
           <JourneyDetail journey={journey.results} />
-          <SeatPicker seats={journey.results.seats} journeyId={journey.results.journeyId}/>
+          <SeatPicker 
+            seats={journey.results.seats} 
+            journeyId={journey.results.journeyId} 
+            selectedSeat={userSeat}
+            onSeatSelected={handleSelect}
+            />
           <div className="controls container">
             <button className="btn btn--big" type="button" onClick={handleBuy}>Rezervovat</button>
           </div>

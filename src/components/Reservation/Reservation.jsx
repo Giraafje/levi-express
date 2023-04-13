@@ -12,7 +12,7 @@ export const Reservation = () => {
           .then((response) => response.json())
           .then((data) => setReservation(data.results));
       }, [])
-      
+
     return (
         <div className="reservation container">
             <h2>Vaše e-jízdenka č. {reservation?.reservationId}</h2>
