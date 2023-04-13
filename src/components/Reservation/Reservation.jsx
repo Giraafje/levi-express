@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import { API_BASE_URL} from './../../index';
+import './reservation.css'
 
 export const Reservation = () => {
     const {id} = useParams()
@@ -11,14 +12,24 @@ export const Reservation = () => {
           .then((response) => response.json())
           .then((data) => setReservation(data.results));
       }, [])
-
-      console.log(reservation)
-
-    //TODO: use the structure and styling from the design example
+      
     return (
         <div className="reservation container">
             <h2>Vaše e-jízdenka č. {reservation?.reservationId}</h2>
-            <p>{reservation?.fromCity.name} -- {reservation?.toCity.name}</p>
+            <div className="reservation__body">
+            <div className="reservation__headings">
+                <p>Datum cesty:</p>
+                <p>Odjezd:</p>
+                <p>Příjezd:</p>
+                <p>Sedadlo:</p>
+            </div>
+            <div className="reservation__info">
+                <p>{reservation?.date}</p>
+                <p>{reservation?.fromCity?.name}, {reservation?.fromCity?.time}</p>
+                <p>{reservation?.toCity?.name}, {reservation?.toCity?.time}</p>
+                <p>{reservation?.seatNumber}</p>
+            </div>
+            </div>
         </div>
     )
 };
