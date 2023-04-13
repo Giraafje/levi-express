@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { JourneyPicker } from '../JourneyPicker';
 import { JourneyDetail } from '../JourneyDetail';
-import { SelectedSeat } from '../SelectedSeat';
+import { SeatPicker } from '../SeatPicker';
 import { API_BASE_URL} from './../../index';
 import './home.css'
 
@@ -38,7 +38,7 @@ export const Home = () => {
         <>
           <p>Nalezeno spojení s id <b>{journey.results.journeyId}</b>.</p>
           <JourneyDetail journey={journey.results} />
-          <SelectedSeat number={journey.results.autoSeat}/>
+          <SeatPicker seats={journey.results.seats} journeyId={journey.results.journeyId}/>
           <div className="controls container">
             <button className="btn btn--big" type="button" onClick={handleBuy}>Rezervovat</button>
           </div>
